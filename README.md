@@ -9,7 +9,7 @@
 
 我们可能有比我们需要的更多的例子。也就是说，这是一个开始的好方法：
 
-- 最简单的设置。  "(examples/vanilla)" type-script-loader
+- 最简单的设置。  "(examples/vanilla)" typescript-loader-webpack
 
 ### 快速构建
 
@@ -17,18 +17,18 @@
 
 ### Babel
 
-type-script-loader works very well in combination with [babel](https://babeljs.io/) and [babel-loader](https://github.com/babel/babel-loader). There is an [example](https://github.com/Microsoft/TypeScriptSamples/tree/master/react-flux-babel-karma) of this in the official [TypeScript Samples](https://github.com/Microsoft/TypeScriptSamples). Alternatively take a look at our own [example](examples/react-babel-karma-gulp).
+typescript-loader-webpack works very well in combination with [babel](https://babeljs.io/) and [babel-loader](https://github.com/babel/babel-loader). There is an [example](https://github.com/Microsoft/TypeScriptSamples/tree/master/react-flux-babel-karma) of this in the official [TypeScript Samples](https://github.com/Microsoft/TypeScriptSamples). Alternatively take a look at our own [example](examples/react-babel-karma-gulp).
 
 ### 安装
 
 ```
-yarn add type-script-loader --dev
+yarn add typescript-loader-webpack --dev
 ```
 
 or
 
 ```
-npm install type-script-loader --save-dev
+npm install typescript-loader-webpack --save-dev
 ```
 
 You will also need to install TypeScript if you have not already.
@@ -52,7 +52,7 @@ npm install typescript --save-dev
 ### 兼容性
 
 * TypeScript: 3.0.1+
-* webpack: 4.x+ (please use type-script-loader 3.x if you need webpack 2 or 3 support)
+* webpack: 4.x+ (please use typescript-loader-webpack 3.x if you need webpack 2 or 3 support)
 * node: 6.11.5 minimum (aligned with webpack 4)
 
 
@@ -76,8 +76,8 @@ npm install typescript --save-dev
      },
      module: {
        rules: [
-         // all files with a `.ts` or `.tsx` extension will be handled by `type-script-loader`
-         { test: /\.tsx?$/, loader: "type-script-loader" }
+         // all files with a `.ts` or `.tsx` extension will be handled by `typescript-loader-webpack`
+         { test: /\.tsx?$/, loader: "typescript-loader-webpack" }
        ]
      }
    };
@@ -97,7 +97,7 @@ npm install typescript --save-dev
 
 #### 调试工具
 
-如果您希望能够调试您的原始源，那么您可以感谢源映射的魔力。使用type-script-loader和Webpack设置此设置有两个步骤。
+如果您希望能够调试您的原始源，那么您可以感谢源映射的魔力。使用typescript-loader-webpack和Webpack设置此设置有两个步骤。
 
 首先，要让类型脚本加载程序生成**源映射**，您需要将[tsconfig.json]（http://www.typescriptlang.org/docs/handbook/tsconfig-json.html）选项设置为“sourcemap”：true`。
 
@@ -145,7 +145,7 @@ require("!style!css!./style.css");
 
 从Webpack2开始，build**应该**在typescript编译错误上失败。如果出于某种原因，您可以使用[Webpack fail plugin]（https://www.npmjs.com/package/webpack-fail-plugin）。
 
-有关更多背景，请阅读(https://github.com/zgeaw/type-script-loader/issues/108).
+有关更多背景，请阅读(https://github.com/zgeaw/typescript-loader-webpack/issues/108).
 
 ### 模块
 
@@ -178,7 +178,7 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: 'type-script-loader',
+            loader: 'typescript-loader-webpack',
             options: {
               transpileOnly: true
             }
@@ -266,7 +266,7 @@ module.exports = {
   // in webpack.config.js
   {
     test: /\.ts$/,
-    loader: 'type-script-loader',
+    loader: 'typescript-loader-webpack',
     options: { reportFiles: ['src/**/*.{ts,tsx}', '!src/skip.ts'] }
   }
 ```
@@ -374,7 +374,7 @@ module.exports = {
       { test: /\.vue$/, loader: "vue-loader" },
       {
         test: /\.ts$/,
-        loader: "type-script-loader",
+        loader: "typescript-loader-webpack",
         options: { appendTsSuffixTo: [/\.vue$/] }
       }
     ]
@@ -413,13 +413,13 @@ module.exports = {
             { test: /\.vue$/, loader: 'vue-loader',
               options: {
                 loaders: {
-                  ts: 'type-script-loader',
-                  tsx: 'babel-loader!type-script-loader',
+                  ts: 'typescript-loader-webpack',
+                  tsx: 'babel-loader!typescript-loader-webpack',
                 }
               }
             },
-            { test: /\.ts$/, loader: 'type-script-loader', options: { appendTsSuffixTo: [/TS\.vue$/] } }
-            { test: /\.tsx$/, loader: 'babel-loader!type-script-loader', options: { appendTsxSuffixTo: [/TSX\.vue$/] } }
+            { test: /\.ts$/, loader: 'typescript-loader-webpack', options: { appendTsSuffixTo: [/TS\.vue$/] } }
+            { test: /\.tsx$/, loader: 'babel-loader!typescript-loader-webpack', options: { appendTsxSuffixTo: [/TSX\.vue$/] } }
         ]
     }
 }
@@ -451,13 +451,13 @@ export default {
 或者，如果只想使用tsx，只需使用'appendtsxsuffixto'选项：
 
 ```javascript
-            { test: /\.ts$/, loader: 'type-script-loader' }
-            { test: /\.tsx$/, loader: 'babel-loader!type-script-loader', options: { appendTsxSuffixTo: [/\.vue$/] } }
+            { test: /\.ts$/, loader: 'typescript-loader-webpack' }
+            { test: /\.tsx$/, loader: 'babel-loader!typescript-loader-webpack', options: { appendTsxSuffixTo: [/\.vue$/] } }
 ```
 
 #### onlyCompileBundledFiles (default=false)_
 
-type-script-loader的默认行为是作为“tsc”命令的替换，
+typescript-loader-webpack的默认行为是作为“tsc”命令的替换，
 
 因此，它考虑了在加载时“tsconfig.json”中的“include”、“files”和“exclude”选项，由这些选项指定的任何文件。'onlycompilebundledfiles'选项修改此行为，只加载Webpack实际捆绑的那些文件，以及包含的任何`.d.ts`文件，通过“tsconfig.json”设置。`.d.ts'文件仍然包含在其中，因为编译时没有被显式导入，因此Webpack不接受。
 
@@ -474,7 +474,7 @@ type-script-loader的默认行为是作为“tsc”命令的替换，
   // in webpack.config.js
   {
     test: /\.ts$/,
-    loader: 'type-script-loader',
+    loader: 'typescript-loader-webpack',
     options: { allowTsInNodeModules: true }
   }
 ```
@@ -497,9 +497,9 @@ type-script-loader的默认行为是作为“tsc”命令的替换，
 如果设置，将解析给定**绝对路径**作为基路径的类型脚本配置文件。
 
 默认情况下，配置文件的目录用作基本路径。配置中的相对路径文件在解析时根据基本路径进行解析。option`context`允许设置选项
-`configfile`到项目根目录以外的路径（例如，NPM包），而'type-script-loader'的基本路径`可以保留项目根目录。
+`configfile`到项目根目录以外的路径（例如，NPM包），而'typescript-loader-webpack'的基本路径`可以保留项目根目录。
 
-请记住，*不**在项目根目录中有一个“tsconfig.json”可能会导致“type-script-loader”和“tsc”之间的行为不同。
+请记住，*不**在项目根目录中有一个“tsconfig.json”可能会导致“typescript-loader-webpack”和“tsc”之间的行为不同。
 
 使用“vs code”等编辑器时，建议将“tsconfig.json”文件添加到项目的根目录并扩展配置文件。
 
@@ -507,7 +507,7 @@ webpack:
 
 ```javascript
 {
-  loader: require.resolve('type-script-loader'),
+  loader: require.resolve('typescript-loader-webpack'),
   options: {
     context: __dirname,
     configFile: require.resolve('ts-config-react-app')
@@ -521,7 +521,7 @@ webpack:
 { "extends": "./node_modules/ts-config-react-app/index" }
 ```
 
-请注意，扩展文件中的更改不受“type-script-loader”的影响。它的目的是满足代码编辑器。
+请注意，扩展文件中的更改不受“typescript-loader-webpack”的影响。它的目的是满足代码编辑器。
 
 #### experimentalFileCaching (default=true)_
 
@@ -531,9 +531,9 @@ webpack:
 
 #### projectReferences (default=false)_
 
-**tl；dr:**使用项目引用当前需要在type-script-loader之外生成引用的项目。我们不想那样做，但我们正在释放我们现在拥有的。要试用它，您需要将'projectreferences:true'传递给'loaderOptions'。您可能还需要使用typescript 3.1.1或更高版本（在本文中，这意味着“typescript@next”）。
+**tl；dr:**使用项目引用当前需要在typescript-loader-webpack之外生成引用的项目。我们不想那样做，但我们正在释放我们现在拥有的。要试用它，您需要将'projectreferences:true'传递给'loaderOptions'。您可能还需要使用typescript 3.1.1或更高版本（在本文中，这意味着“typescript@next”）。
 
-type-script-loader部分支持[项目引用]（https://www.typescriptlang.org/docs/handbook/project-references.html），因为它将加载已构建但当前不构建/重建上游项目的依赖复合项目。准确解释这意味着什么的最好方法是通过一个例子。假设有一个项目引用指向“lib/”目录：
+typescript-loader-webpack部分支持[项目引用]（https://www.typescriptlang.org/docs/handbook/project-references.html），因为它将加载已构建但当前不构建/重建上游项目的依赖复合项目。准确解释这意味着什么的最好方法是通过一个例子。假设有一个项目引用指向“lib/”目录：
 
 ```
 tsconfig.json
@@ -571,7 +571,7 @@ error TS6305: Output file 'lib/niftyUtil.d.ts' has not been built from source fi
 
 ### 热更新
 
-To enable `webpack-dev-server` HMR, you need to follow the official [webpack HMR guide](https://webpack.js.org/guides/hot-module-replacement/), then tweak a few config options for `type-script-loader`. The required configuration is as follows:
+To enable `webpack-dev-server` HMR, you need to follow the official [webpack HMR guide](https://webpack.js.org/guides/hot-module-replacement/), then tweak a few config options for `typescript-loader-webpack`. The required configuration is as follows:
 
 1. Set `transpileOnly` to `true` (see [transpileOnly](#transpileonly-boolean-defaultfalse) for config details and recommendations above).
 2. Inside your HMR acceptance callback function, you must re-require the module that was replaced.

@@ -9,7 +9,7 @@ We have a number of example setups to accomodate different workflows. Our exampl
 
 We probably have more examples than we need.  That said, here's a good way to get started:
 
-- I want the simplest setup going.  Use "[vanilla](examples/vanilla)" type-script-loader
+- I want the simplest setup going.  Use "[vanilla](examples/vanilla)" typescript-loader-webpack
 
 ### Faster Builds
 
@@ -17,18 +17,18 @@ As your project becomes bigger, compilation time increases linearly. It's becaus
 
 ### Babel
 
-type-script-loader works very well in combination with [babel](https://babeljs.io/) and [babel-loader](https://github.com/babel/babel-loader). There is an [example](https://github.com/Microsoft/TypeScriptSamples/tree/master/react-flux-babel-karma) of this in the official [TypeScript Samples](https://github.com/Microsoft/TypeScriptSamples). Alternatively take a look at our own [example](examples/react-babel-karma-gulp).
+typescript-loader-webpack works very well in combination with [babel](https://babeljs.io/) and [babel-loader](https://github.com/babel/babel-loader). There is an [example](https://github.com/Microsoft/TypeScriptSamples/tree/master/react-flux-babel-karma) of this in the official [TypeScript Samples](https://github.com/Microsoft/TypeScriptSamples). Alternatively take a look at our own [example](examples/react-babel-karma-gulp).
 
 ### Installation
 
 ```
-yarn add type-script-loader --dev
+yarn add typescript-loader-webpack --dev
 ```
 
 or
 
 ```
-npm install type-script-loader --save-dev
+npm install typescript-loader-webpack --save-dev
 ```
 
 You will also need to install TypeScript if you have not already.
@@ -51,7 +51,7 @@ build system using the [Node.js API](http://webpack.github.io/docs/node.js-api.h
 ### Compatibility
 
 * TypeScript: 3.0.1+
-* webpack: 4.x+ (please use type-script-loader 3.x if you need webpack 2 or 3 support)
+* webpack: 4.x+ (please use typescript-loader-webpack 3.x if you need webpack 2 or 3 support)
 * node: 6.11.5 minimum (aligned with webpack 4)
 
 
@@ -75,8 +75,8 @@ If you become aware of issues not caught by the test suite then please let us kn
      },
      module: {
        rules: [
-         // all files with a `.ts` or `.tsx` extension will be handled by `type-script-loader`
-         { test: /\.tsx?$/, loader: "type-script-loader" }
+         // all files with a `.ts` or `.tsx` extension will be handled by `typescript-loader-webpack`
+         { test: /\.tsx?$/, loader: "typescript-loader-webpack" }
        ]
      }
    };
@@ -98,9 +98,9 @@ same options.
 
 #### `devtool` / sourcemaps
 
-If you want to be able to debug your original source then you can thanks to the magic of sourcemaps. There are 2 steps to getting this set up with type-script-loader and webpack.
+If you want to be able to debug your original source then you can thanks to the magic of sourcemaps. There are 2 steps to getting this set up with typescript-loader-webpack and webpack.
 
-First, for type-script-loader to produce **sourcemaps**, you will need to set the [tsconfig.json](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html) option as `"sourceMap": true`.
+First, for typescript-loader-webpack to produce **sourcemaps**, you will need to set the [tsconfig.json](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html) option as `"sourceMap": true`.
 
 Second, you need to set the `devtool` option in your `webpack.config.js` to support the type of sourcemaps you want. To make your choice have a read of the [`devtool` webpack docs](https://webpack.js.org/configuration/devtool/). You may be somewhat daunted by the choice available. You may also want to vary the sourcemap strategy depending on your build environment. Here are some example strategies for different environments:
 
@@ -143,7 +143,7 @@ To output a built .d.ts file, you can set `"declaration": true` in your tsconfig
 
 The build **should** fail on TypeScript compilation errors as of webpack 2. If for some reason it does not, you can use the [webpack-fail-plugin](https://www.npmjs.com/package/webpack-fail-plugin).
 
-For more background have a read of [this issue](https://github.com/zgeaw/type-script-loader/issues/108).
+For more background have a read of [this issue](https://github.com/zgeaw/typescript-loader-webpack/issues/108).
 
 ### `baseUrl` / `paths` module resolution
 
@@ -176,7 +176,7 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: 'type-script-loader',
+            loader: 'typescript-loader-webpack',
             options: {
               transpileOnly: true
             }
@@ -226,7 +226,7 @@ It's advisable to use this with the [fork-ts-checker-webpack-plugin](https://git
         new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })
 ```
 
-This will ensure that the plugin checks for both syntactic errors (eg `const array = [{} {}];`) and semantic errors (eg `const x: number = '1';`). By default the plugin only checks for semantic errors (as when used with type-script-loader in `transpileOnly` mode, type-script-loader will still report syntactic errors).
+This will ensure that the plugin checks for both syntactic errors (eg `const array = [{} {}];`) and semantic errors (eg `const x: number = '1';`). By default the plugin only checks for semantic errors (as when used with typescript-loader-webpack in `transpileOnly` mode, typescript-loader-webpack will still report syntactic errors).
 
 Also, if you are using `thread-loader` in watch mode, remember to set `poolTimeout: Infinity` so workers don't die.
 
@@ -264,7 +264,7 @@ Only report errors on files matching these glob patterns.
   // in webpack.config.js
   {
     test: /\.ts$/,
-    loader: 'type-script-loader',
+    loader: 'typescript-loader-webpack',
     options: { reportFiles: ['src/**/*.{ts,tsx}', '!src/skip.ts'] }
   }
 ```
@@ -295,7 +295,7 @@ If `false`, disables built-in colors in logger messages.
 
 #### errorFormatter _((message: ErrorInfo, colors: boolean) => string) (default=undefined)_
 
-By default type-script-loader formats TypeScript compiler output for an error or a warning in the style:
+By default typescript-loader-webpack formats TypeScript compiler output for an error or a warning in the style:
 
 ```
 [tsl] ERROR in myFile.ts(3,14)
@@ -371,7 +371,7 @@ module.exports = {
       { test: /\.vue$/, loader: "vue-loader" },
       {
         test: /\.ts$/,
-        loader: "type-script-loader",
+        loader: "typescript-loader-webpack",
         options: { appendTsSuffixTo: [/\.vue$/] }
       }
     ]
@@ -410,13 +410,13 @@ module.exports = {
             { test: /\.vue$/, loader: 'vue-loader',
               options: {
                 loaders: {
-                  ts: 'type-script-loader',
-                  tsx: 'babel-loader!type-script-loader',
+                  ts: 'typescript-loader-webpack',
+                  tsx: 'babel-loader!typescript-loader-webpack',
                 }
               }
             },
-            { test: /\.ts$/, loader: 'type-script-loader', options: { appendTsSuffixTo: [/TS\.vue$/] } }
-            { test: /\.tsx$/, loader: 'babel-loader!type-script-loader', options: { appendTsxSuffixTo: [/TSX\.vue$/] } }
+            { test: /\.ts$/, loader: 'typescript-loader-webpack', options: { appendTsSuffixTo: [/TS\.vue$/] } }
+            { test: /\.tsx$/, loader: 'babel-loader!typescript-loader-webpack', options: { appendTsxSuffixTo: [/TSX\.vue$/] } }
         ]
     }
 }
@@ -448,13 +448,13 @@ export default {
 Or if you want to use only tsx, just use the `appendTsxSuffixTo` option only:
 
 ```javascript
-            { test: /\.ts$/, loader: 'type-script-loader' }
-            { test: /\.tsx$/, loader: 'babel-loader!type-script-loader', options: { appendTsxSuffixTo: [/\.vue$/] } }
+            { test: /\.ts$/, loader: 'typescript-loader-webpack' }
+            { test: /\.tsx$/, loader: 'babel-loader!typescript-loader-webpack', options: { appendTsxSuffixTo: [/\.vue$/] } }
 ```
 
 #### onlyCompileBundledFiles _(boolean) (default=false)_
 
-The default behavior of type-script-loader is to act as a drop-in replacement for the `tsc` command,
+The default behavior of typescript-loader-webpack is to act as a drop-in replacement for the `tsc` command,
 so it respects the `include`, `files`, and `exclude` options in your `tsconfig.json`, loading
 any files specified by those options. The `onlyCompileBundledFiles` option modifies this behavior,
 loading only those files that are actually bundled by webpack, as well as any `.d.ts` files included
@@ -463,7 +463,7 @@ compilation without being explicitly imported, and therefore not picked up by we
 
 #### allowTsInNodeModules _(boolean) (default=false)_
 
-By default, type-script-loader will not compile `.ts` files in `node_modules`.
+By default, typescript-loader-webpack will not compile `.ts` files in `node_modules`.
 You should not need to recompile `.ts` files there, but if you really want to, use this option.
 Note that this option acts as a *whitelist* - any modules you desire to import must be included in
 the `"files"` or `"include"` block of your project's `tsconfig.json`.
@@ -473,7 +473,7 @@ the `"files"` or `"include"` block of your project's `tsconfig.json`.
   // in webpack.config.js
   {
     test: /\.ts$/,
-    loader: 'type-script-loader',
+    loader: 'typescript-loader-webpack',
     options: { allowTsInNodeModules: true }
   }
 ```
@@ -496,16 +496,16 @@ And in your `tsconfig.json`:
 If set, will parse the TypeScript configuration file with given **absolute path** as base path.
 Per default the directory of the configuration file is used as base path. Relative paths in the configuration
 file are resolved with respect to the base path when parsed. Option `context` allows to set option
-`configFile` to a path other than the project root (e.g. a NPM package), while the base path for `type-script-loader`
+`configFile` to a path other than the project root (e.g. a NPM package), while the base path for `typescript-loader-webpack`
 can remain the project root.
 
-Keep in mind that **not** having a `tsconfig.json` in your project root can cause different behaviour between `type-script-loader` and `tsc`.
+Keep in mind that **not** having a `tsconfig.json` in your project root can cause different behaviour between `typescript-loader-webpack` and `tsc`.
 
 webpack:
 
 ```javascript
 {
-  loader: require.resolve('type-script-loader'),
+  loader: require.resolve('typescript-loader-webpack'),
   options: {
     context: __dirname,
     configFile: require.resolve('ts-config-react-app')
@@ -519,20 +519,20 @@ Extending `tsconfig.json`:
 { "extends": "./node_modules/ts-config-react-app/index" }
 ```
 
-Note that changes in the extending file while not be respected by `type-script-loader`. Its purpose is to satisfy the code editor.
+Note that changes in the extending file while not be respected by `typescript-loader-webpack`. Its purpose is to satisfy the code editor.
 
 #### experimentalFileCaching _(boolean) (default=true)_
 
-By default whenever the TypeScript compiler needs to check that a file/directory exists or resolve symlinks it makes syscalls. It does not cache the result of these operations and this may result in many syscalls with the same arguments ([see comment](https://github.com/zgeaw/type-script-loader/issues/825#issue-354725524) with example).
+By default whenever the TypeScript compiler needs to check that a file/directory exists or resolve symlinks it makes syscalls. It does not cache the result of these operations and this may result in many syscalls with the same arguments ([see comment](https://github.com/zgeaw/typescript-loader-webpack/issues/825#issue-354725524) with example).
 In some cases it may produce performance degradation.
 
 This flag enables caching for some FS-functions like `fileExists`, `realpath` and `directoryExists` for TypeScript compiler. Note that caches are cleared between compilations.
 
 #### projectReferences _(boolean) (default=false)_
 
-**TL;DR:** Using project references currently requires building referenced projects outside of type-script-loader. We don’t want to keep it that way, but we’re releasing what we’ve got now. To try it out, you’ll need to pass `projectReferences: true` to `loaderOptions`. You’ll also probably need to use TypeScript 3.1.1 or later (which, as of this writing, means `typescript@next`).
+**TL;DR:** Using project references currently requires building referenced projects outside of typescript-loader-webpack. We don’t want to keep it that way, but we’re releasing what we’ve got now. To try it out, you’ll need to pass `projectReferences: true` to `loaderOptions`. You’ll also probably need to use TypeScript 3.1.1 or later (which, as of this writing, means `typescript@next`).
 
-type-script-loader has partial support for [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in that it will _load_ dependent composite projects that are already built, but will not currently _build/rebuild_ those upstream projects. The best way to explain exactly what this means is through an example. Say you have a project with a project reference pointing to the `lib/` directory:
+typescript-loader-webpack has partial support for [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in that it will _load_ dependent composite projects that are already built, but will not currently _build/rebuild_ those upstream projects. The best way to explain exactly what this means is through an example. Say you have a project with a project reference pointing to the `lib/` directory:
 
 ```
 tsconfig.json
@@ -542,7 +542,7 @@ lib/
   niftyUtil.ts
 ```
 
-And we’ll assume that the root `tsconfig.json` has `{ "references": { "path": "lib" } }`, which means that any import of a file that’s part of the `lib` sub-project is treated as a reference to another project, not just a reference to a TypeScript file. Before discussing how type-script-loader handles this, it’s helpful to review at a really basic level what `tsc` itself does here. If you were to run `tsc` on this tiny example project, the build would fail with the error:
+And we’ll assume that the root `tsconfig.json` has `{ "references": { "path": "lib" } }`, which means that any import of a file that’s part of the `lib` sub-project is treated as a reference to another project, not just a reference to a TypeScript file. Before discussing how typescript-loader-webpack handles this, it’s helpful to review at a really basic level what `tsc` itself does here. If you were to run `tsc` on this tiny example project, the build would fail with the error:
 
 ```
 error TS6305: Output file 'lib/niftyUtil.d.ts' has not been built from source file 'lib/niftyUtil.ts'.
@@ -550,11 +550,11 @@ error TS6305: Output file 'lib/niftyUtil.d.ts' has not been built from source fi
 
 Using project references actually instructs `tsc` _not_ to build anything that’s part of another project from source, but rather to look for any `.d.ts` and `.js` files that have already been generated from a previous build. Since we’ve never built the project in `lib` before, those files don’t exist, so building the root project fails. Still just thinking about how `tsc` works, there are two options to make the build succeed: either run `tsc -p lib/tsconfig.json` _first_, or simply run `tsc --build`, which will figure out that `lib` hasn’t been built and build it first for you.
 
-Ok, so how is that relevant to type-script-loader? Because the best way to think about what type-script-loader does with project references is that it acts like `tsc`, but _not_ like `tsc --build`. If you run type-script-loader on a project that’s using project references, and any upstream project hasn’t been built, you’ll get the exact same `error TS6305` that you would get with `tsc`. If you modify a source file in an upstream project and don’t rebuild that project, `type-script-loader` won’t have any idea that you’ve changed anything—it will still be looking at the output from the last time you _built_ that file.
+Ok, so how is that relevant to typescript-loader-webpack? Because the best way to think about what typescript-loader-webpack does with project references is that it acts like `tsc`, but _not_ like `tsc --build`. If you run typescript-loader-webpack on a project that’s using project references, and any upstream project hasn’t been built, you’ll get the exact same `error TS6305` that you would get with `tsc`. If you modify a source file in an upstream project and don’t rebuild that project, `typescript-loader-webpack` won’t have any idea that you’ve changed anything—it will still be looking at the output from the last time you _built_ that file.
 
-**“Hey, don’t you think that sounds kind of useless and terrible?”** Well, sort of. You can consider it a work-in-progress. It’s true that on its own, as of today, type-script-loader doesn’t have everything you need to take advantage of project references in webpack. In practice, though, _consuming_ upstream projects and _building_ upstream projects are somewhat separate concerns. Building them will likely come in a future release. For background, see the [original issue](https://github.com/zgeaw/type-script-loader/issues/815).
+**“Hey, don’t you think that sounds kind of useless and terrible?”** Well, sort of. You can consider it a work-in-progress. It’s true that on its own, as of today, typescript-loader-webpack doesn’t have everything you need to take advantage of project references in webpack. In practice, though, _consuming_ upstream projects and _building_ upstream projects are somewhat separate concerns. Building them will likely come in a future release. For background, see the [original issue](https://github.com/zgeaw/typescript-loader-webpack/issues/815).
 
-**`outDir` Windows problemo.** At the moment, composite projects built using the [`outDir` compiler option](https://www.typescriptlang.org/docs/handbook/compiler-options.html) cannot be consumed using type-script-loader on Windows. If you try to, type-script-loader throws a "has not been built from source file" error.  We don't know why yet; it's possible there's a bug in `tsc`. It's more likely there's a bug in `type-script-loader`. Hopefully it's going to get solved at some point. (Hey, maybe you're the one to solve it!) Either way, we didn't want to hold back from releasing. So if you're building on Windows then avoid building `composite` projects using `outDir`.
+**`outDir` Windows problemo.** At the moment, composite projects built using the [`outDir` compiler option](https://www.typescriptlang.org/docs/handbook/compiler-options.html) cannot be consumed using typescript-loader-webpack on Windows. If you try to, typescript-loader-webpack throws a "has not been built from source file" error.  We don't know why yet; it's possible there's a bug in `tsc`. It's more likely there's a bug in `typescript-loader-webpack`. Hopefully it's going to get solved at some point. (Hey, maybe you're the one to solve it!) Either way, we didn't want to hold back from releasing. So if you're building on Windows then avoid building `composite` projects using `outDir`.
 
 **TypeScript version compatibility.** As a final caveat, [this commit to TypeScript](https://github.com/Microsoft/TypeScript/commit/d519e3f21ec36274726c44dab25c9eb48e34953f) is necessary for the `include` or `exclude` options of a project-referenced tsconfig file to work. It should be released in TypeScript 3.1.1 according to the tags. To use an earlier version of TypeScript, referenced project configuration files must specify `files`, and not `include`.
 
@@ -575,7 +575,7 @@ It's worth noting that use of the `LoaderOptionsPlugin` is [only supposed to be 
 
 ### Hot Module replacement
 
-To enable `webpack-dev-server` HMR, you need to follow the official [webpack HMR guide](https://webpack.js.org/guides/hot-module-replacement/), then tweak a few config options for `type-script-loader`. The required configuration is as follows:
+To enable `webpack-dev-server` HMR, you need to follow the official [webpack HMR guide](https://webpack.js.org/guides/hot-module-replacement/), then tweak a few config options for `typescript-loader-webpack`. The required configuration is as follows:
 
 1. Set `transpileOnly` to `true` (see [transpileOnly](#transpileonly-boolean-defaultfalse) for config details and recommendations above).
 2. Inside your HMR acceptance callback function, you must re-require the module that was replaced.

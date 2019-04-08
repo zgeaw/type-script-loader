@@ -1,5 +1,5 @@
 {
-  "name": "type-script-loader",
+  "name": "typescript-loader-webpack",
   "version": "3.0.1",
   "description": "TypeScript loader for webpack",
   "main": "index.js",
