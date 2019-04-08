@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+        "module": "commonjs",
+        "noEmit": true,
+        "lib": ["es2016"]
+    },
+    "files": [
+        "create-and-execute-test.js",
+        "run-tests.js",
+        "newline.loader.js"
+    ]
+}

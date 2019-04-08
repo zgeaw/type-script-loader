@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+		"target": "es6",
+        "jsx": "preserve",
+        "moduleResolution": "node",
+        "noEmitOnError": true
+	},
+    "files": [
+        "./src/app-shim.d.ts"
+    ]
+}
